@@ -1,0 +1,18 @@
+@tailwind base;@tailwind components;@tailwind utilities;
+body{background:#f4f7fc;color:#1d3150;font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
+.btn{@apply inline-flex items-center justify-center gap-2 min-h-[44px] px-4 rounded-xl font-bold bg-[#19365f] text-white disabled:opacity-60}
+.field{@apply w-full min-h-[44px] px-3 rounded-xl border border-[#dfe7f1] bg-[#fbfcff] focus:outline-none focus:ring-2 focus:ring-brand-blue}
+.card{@apply bg-white border border-[#e5ebf3] rounded-2xl shadow-sm}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+:root{color-scheme:light;--page:#f4f7fc;--surface:#fff;--text:#1d3150;--muted:#71809a;--line:#e5ebf3}
+html.dark{color-scheme:dark;--page:#0e1726;--surface:#162338;--text:#e8eef8;--muted:#a8b6ca;--line:#2a3a52}
+body{background:var(--page);color:var(--text)}
+.dark .card{background:var(--surface);border-color:var(--line)}
+.dark .field{background:#101b2c;border-color:#344761;color:var(--text)}
+.dark .bg-white{background-color:var(--surface)!important}
+.dark .text-\[\#1d3150\],.dark .text-\[\#5b6c84\],.dark .text-\[\#71809a\],.dark .text-\[\#60718a\]{color:var(--text)!important}
+.dark .text-\[\#71809a\]{color:var(--muted)!important}
+.dark .border-\[\#e5ebf3\],.dark .border-\[\#dfe7f1\]{border-color:var(--line)!important}
+.dark .bg-\[\#f6f1ff\]{background:#211d35!important}.dark .bg-\[\#effbf5\]{background:#10291f!important}
+*:focus-visible{outline:3px solid #4388e8;outline-offset:2px}
