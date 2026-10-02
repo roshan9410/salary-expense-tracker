@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
-import { Plus, LayoutDashboard, List, BarChart3, LogOut, Settings as SettingsIcon, WifiOff } from 'lucide-react'
+import { Plus, LayoutDashboard, List, BarChart3, Settings as SettingsIcon, WifiOff } from 'lucide-react'
 import db, { demoMode } from './lib/db'
 import { monthKey, shiftMonth, monthLabel } from './lib/format'
 import Login from './components/Login'
@@ -71,14 +71,13 @@ export default function App() {
           <button className="btn w-full !bg-brand-green" onClick={() => setSheet('new')}><Plus size={18} /> Add expense <kbd className="text-xs opacity-70">N</kbd></button>
           {PAGES.map(([k, l, I]) => <button key={k} onClick={() => setPage(k)} aria-current={page === k ? 'page' : undefined} className={nav + (page === k ? ' bg-white/10' : ' text-[#d1deef]')}><I size={18} /> {l}</button>)}
         </div>
-        <button className={nav + ' text-[#d1deef]'} onClick={db.signOut}><LogOut size={18} /> Sign out</button>
       </aside>
       <main className="flex-1 min-w-0 p-3 md:p-6 pb-28 md:pb-6 max-w-[1180px]">
         {demoMode && <div className="mb-3 rounded-xl bg-[#fff7e0] text-[#8a6410] text-sm px-3 py-2">Demo mode: data stays in this browser</div>}
         {err ? <ErrorBox msg={err} retry={load} /> : !hist ? <PageSkeleton /> : page === 'dashboard' ? (
           <Dashboard {...{ month, setMonth, txs, settings, hist }} onSettings={saveSettings} />
         ) : page === 'settings' ? (
-          <Settings user={user} onSignOut={db.signOut} dark={dark} setDark={setDark} onError={setErr} />
+          <Settings user={user} onSignOut={db.signOut} demoMode={demoMode} dark={dark} setDark={setDark} onError={setErr} />
         ) : (
           <div className="space-y-4">
             <div className="flex items-center justify-between"><h1 className="text-2xl font-extrabold">{page === 'history' ? 'History' : 'Reports'}</h1>
@@ -89,9 +88,8 @@ export default function App() {
           </div>
         )}
       </main>
-      <nav className="md:hidden fixed bottom-0 inset-x-0 h-16 bg-white border-t border-[#e5ebf3] grid grid-cols-5 z-30">
+      <nav className="md:hidden fixed bottom-0 inset-x-0 h-16 bg-white border-t border-[#e5ebf3] grid grid-cols-4 z-30">
         {PAGES.map(([k, l, I]) => <button key={k} onClick={() => setPage(k)} aria-current={page === k ? 'page' : undefined} className={'flex flex-col items-center justify-center text-xs font-semibold ' + (page === k ? 'text-brand-blue' : 'text-[#71809a]')}><I size={20} />{l}</button>)}
-        <button className="flex flex-col items-center justify-center text-xs font-semibold text-[#71809a]" onClick={db.signOut}><LogOut size={20} />Sign out</button>
       </nav>
       <button aria-label="Add expense" onClick={() => setSheet('new')} className="md:hidden fixed right-4 bottom-20 z-40 h-14 w-14 rounded-full bg-brand-green text-white grid place-content-center shadow-lg"><Plus size={28} /></button>
       {sheet && <AddSheet key={sheet.id || 'new'} counts={counts} initial={sheet === 'new' ? null : sheet} onClose={() => setSheet(null)} onSave={save} />}

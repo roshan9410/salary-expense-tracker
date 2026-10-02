@@ -5,6 +5,7 @@ import { getPreferences, savePreferences } from './preferences'
 const url = import.meta.env.VITE_SUPABASE_URL, key = import.meta.env.VITE_SUPABASE_ANON_KEY
 export const sb = url && key ? createClient(url, key) : null
 export const demoMode = !sb
+export const cloudConfigured = Boolean(url && key)
 
 const ls = (k, d) => { try { return JSON.parse(localStorage.getItem(k)) ?? d } catch { return d } }
 const put = (k, v) => localStorage.setItem(k, JSON.stringify(v))
